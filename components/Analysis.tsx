@@ -23,7 +23,7 @@ const Analysis: React.FC<AnalysisProps> = ({ username }) => {
     if (debouncedUsername && !isLoading) { // 检查是否正在加载
       setIsLoading(true); // 开始加载时设置为true
       try {
-        const response = await fetch(`http://localhost:5000/api/user/${debouncedUsername}`);
+        const response = await fetch(`https://divineseed.top/api/user/${debouncedUsername}`);
         const data = await response.json();
         setUserData(data.userData);
         setMainString(data.tweetsText);
