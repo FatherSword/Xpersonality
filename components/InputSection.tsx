@@ -6,7 +6,8 @@ export default function InputSection({ onAnalysis }: any) {
   const [username1, setUsername1] = useState('');
   const [username2First, setUsername2First] = useState('');
   const [username2Second, setUsername2Second] = useState('');
-  const [autoResponse, setAutoResponse] = useState('');
+  const [autoName, setAutoName] = useState('');
+  const [querySentence, setQuerySentence] = useState('');
 
   const handleConfirm = (username: any) => {
     setLoading(true);
@@ -15,6 +16,10 @@ export default function InputSection({ onAnalysis }: any) {
       setLoading(false);
       onAnalysis(username);
     }, 1000);
+  };
+  
+  const setQuery = (querySentence: any) => {
+    setQuerySentence(querySentence);
   };
 
   const handleConfirmSecondUser = () => {
@@ -26,6 +31,15 @@ export default function InputSection({ onAnalysis }: any) {
       onAnalysis(combinedUsername2);
     }, 1000);
   };
+
+  const handleResponse = (autoName: any, querySentence: any) => {
+    setLoading(true);
+    // 设置1s后切换到Analysis组件，并传递用户名参数
+    setTimeout(() => {
+      setLoading(false);
+      onAnalysis(autoName, querySentence);
+    }, 1000);
+  }
 
   if (loading) {
     return (
@@ -78,16 +92,26 @@ export default function InputSection({ onAnalysis }: any) {
       <div className="flex items-center space-x-4">
         <input
           type="text"
-          placeholder="Automatic Response"
-          value={autoResponse}
-          onChange={(e) => setAutoResponse(e.target.value)}
+          placeholder="Query"
+          value={querySentence}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-96 px-4 py-2 text-lg text-gray-800 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
+        />
+        <span className="w-24 text-center">@</span>
+      </div>
+      <div className="flex items-center space-x-4">
+        <input
+          type="text"
+          placeholder="Username"
+          value={autoName}
+          onChange={(e) => setAutoName(e.target.value)}
           className="w-96 px-4 py-2 text-lg text-gray-800 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-300"
         />
         <button
-          onClick={() => handleConfirm(autoResponse)}
+          onClick={() => handleResponse(autoName, querySentence)}
           className="w-24 h-8 bg-gray-900 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 transition-colors duration-300"
         >
-          Confirm
+          Ask
         </button>
       </div>
     </div>

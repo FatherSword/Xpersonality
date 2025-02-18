@@ -10,11 +10,15 @@ import Analysis from '@/components/Analysis';
 export default function Home() {
   const [model, setModel] = useState('Deepseek R1');
   const [showAnalysis, setShowAnalysis] = useState(false);
-  const [username, setUsername] = useState(''); // 新增一个状态来存储用户名
+  const [username, setUsername] = useState('');
+  const [querySentence, setQuerySentence] = useState('');
 
-  const handleAnalysis = (username: string) => {
-    setUsername(username); // 存储接收到的用户名
-    setShowAnalysis(true); // 设置为true以显示Analysis组件
+  const handleAnalysis = (username: string, querySentence?: string) => {
+    setUsername(username);
+    if (querySentence) {
+      setQuerySentence(querySentence);
+    }
+    setShowAnalysis(true);
   };
 
   return (
@@ -30,8 +34,7 @@ export default function Home() {
             <ModelDescription model={model} />
           </div>
           {/* 根据showAnalysis的状态来决定渲染哪个组件 */}
-          {showAnalysis ? <Analysis username={username} /> : <InputSection onAnalysis={handleAnalysis} />}
-        </main>
+          {showAnalysis ? <Analysis username={username} querySentence={querySentence} /> : <InputSection onAnalysis={handleAnalysis} />} </main>
       </div>
     </div>
   );
