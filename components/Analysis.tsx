@@ -27,7 +27,7 @@ const Analysis: React.FC<AnalysisProps> = ({ username, querySentence }) => {
       try {
         if (debouncedQuerySentence) {
           // 如果有 querySentence，发送到 /api/response/
-          const res = await fetch(`http://localhost:5001/api/response/?username=${debouncedUsername}&querySentence=${debouncedQuerySentence}`);
+          const res = await fetch(`https://divineseed.top/api/response/?username=${debouncedUsername}&querySentence=${debouncedQuerySentence}`);
           const data = await res.json();
           const { response } = data;
           console.log(response)
@@ -36,7 +36,7 @@ const Analysis: React.FC<AnalysisProps> = ({ username, querySentence }) => {
           // 如果没有 querySentence，发送到 /api/user/
           console.log(debouncedUsername)
           const username = debouncedUsername;
-          const response = await fetch(`http://localhost:5000/api/user/${username}`);
+          const response = await fetch(`https://divineseed.top/api/user/${username}`);
           const data = await response.json();
           setUserData(data.userData);
           setMainString(data.tweetsText);
